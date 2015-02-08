@@ -1,7 +1,7 @@
 
-# WriteGood (writegod)
+# WriteGood
 
-> write good readme files
+Uses the [write-good](https://www.npmjs.com/package/write-good) NPM package to lint your Github Repo's README file
 
 ## Running your project
 
@@ -15,24 +15,4 @@ If you prefer to just build without the live reload and build-on-each-change wat
 
 ```bash
 $ npm run build
-```
-
-
-## Generating Additional Code
-
-You can add additional functionality to your application by invoking the subgenerators included in the Flux Generator. You can add components using the following commands:
-
-#### Components
-```bash
-$ yo flux:component ComponentName
-```
-
-#### Actions
-```bash
-$ yo flux:action ActionCreatorName
-```
-
-#### Stores
-```bash
-$ yo flux:store StoreName
 ```
