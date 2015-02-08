@@ -1,3 +1,7 @@
 .buffer {
 	height: 28px;
 }
+
+textarea {
+	height: 200px;
+}
