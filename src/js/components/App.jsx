@@ -45,7 +45,7 @@ var App = React.createClass({
           <Bootstrap.Col md={10}>
             <Bootstrap.Nav bsStyle="pills" activeKey={this.state.selected} onSelect={this.handleSelect}>
               <Bootstrap.NavItem eventKey={Constants.ActionTypes.LINT_TEXT} title="Paste Text">Paste Text</Bootstrap.NavItem>
-              <Bootstrap.NavItem eventKey={Constants.ActionTypes.GITHUB_TEXT} title="Github Readme">Github ReadME</Bootstrap.NavItem>
+              <Bootstrap.NavItem eventKey={Constants.ActionTypes.LINT_GITHUB} title="Github Readme">Github ReadME</Bootstrap.NavItem>
             </Bootstrap.Nav>
           </Bootstrap.Col>
         </Bootstrap.Row>
