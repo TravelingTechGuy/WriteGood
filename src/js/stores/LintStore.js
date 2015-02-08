@@ -1,6 +1,9 @@
+'use strict';
+
 var AppDispatcher = require('../dispatchers/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var Constants = require('../constants/AppConstants');
+var lint = require('../lib/lint');
 var assign = require('object-assign');
 
 // data storage
@@ -9,7 +12,7 @@ var _data = {};
 var LintStore = assign(EventEmitter.prototype, {
 
   // public methods used by Controller-View to operate on data
-  get: function() {
+  getData: function() {
     return _data;
   },
 
@@ -30,10 +33,24 @@ var LintStore = assign(EventEmitter.prototype, {
   // register store with dispatcher, allowing actions to flow through
   dispatcherIndex: AppDispatcher.register(function(payload) {
     var action = payload.action;
-
-    switch(action.type) {
-      case Constants.LINT_TEXT.ADD_TASK:
+    console.log('store', payload);
+    switch(action.action) {
+      case Constants.ActionTypes.LINT_TEXT:
+          _data = lint.lintText(action.text, action.checks);
+          console.log(_data);
           LintStore.emitChange();
+          break;
+      case Constants.ActionTypes.LINT_GITHUB:
+          _data = lint.lintRepo(action.repoUrl, action.checks, function(error, result) {
+            if(error) {
+              _data.error = error;
+            }
+            else {
+              _data = result;
+            }
+            console.log(_data);
+            LintStore.emitChange();
+          });
           break;
 
       // add more cases for other actionTypes...
