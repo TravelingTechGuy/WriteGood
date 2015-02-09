@@ -2,8 +2,25 @@
   "name": "writegood",
   "version": "0.1.0",
   "description": "write good readme files",
-  "author": "",
+  "author": {
+    "name": "Guy Vider"
+  },
+  "repository": "https://github.com/TravelingTechGuy/WriteGood",
   "license": "MIT",
+  "scripts": {
+    "watch": "gulp",
+    "build": "gulp build",
+    "start": "node server"
+  },
+  "dependencies": {
+    "express": "^4.11.2",
+    "flux": "^2.0.1",
+    "object-assign": "^2.0.0",
+    "react": "^0.12.2",
+    "react-bootstrap": "^0.13.3",
+    "request": "^2.53.0",
+    "write-good": "^0.8.0"
+  },
   "devDependencies": {
     "6to5ify": "^4.1.0",
     "browserify": "^8.1.3",
@@ -16,17 +33,5 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.3.0"
-  },
-  "scripts": {
-    "start": "gulp",
-    "build": "gulp build"
-  },
-  "dependencies": {
-    "flux": "^2.0.1",
-    "object-assign": "^2.0.0",
-    "react": "^0.12.2",
-    "react-bootstrap": "^0.13.3",
-    "request": "^2.53.0",
-    "write-good": "^0.8.0"
   }
 }
