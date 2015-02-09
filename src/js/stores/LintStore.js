@@ -41,7 +41,8 @@ var LintStore = assign(EventEmitter.prototype, {
           LintStore.emitChange();
           break;
       case Constants.ActionTypes.LINT_GITHUB:
-          _data = lint.lintRepo(action.repoUrl, action.checks, function(error, result) {
+        console.log('im here');
+          lint.lintGithub(action.repoUrl, action.checks, function(error, result) {
             if(error) {
               _data.error = error;
             }

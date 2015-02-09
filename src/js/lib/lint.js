@@ -1,27 +1,24 @@
 'use strict';
 var request = require('request');
 var writeGood = require('write-good');
-
-var GITHUB_STATIC_URL = 'https://raw.githubusercontent.com/';
-var GITHUB_REGULAR_URL = 'https://github.com/';
+var AppConstants = require('../constants/AppConstants');
 
 module.exports = {
-
-	lintText: function(text, checks) {
-		var result = writeGood(text, checks);
-		return result;
-	},
-
-	lintRepo: function(repoUrl, checks, callback) {
-		var url = repoUrl.replace(GITHUB_REGULAR_URL, GITHUB_STATIC_URL) + '/master/README.md';
+	_getUrl: function(repoUrl) {
+		var url = repoUrl.replace(AppConstants.URLs.GITHUB_REGULAR_URL, AppConstants.URLs.GITHUB_STATIC_URL) + '/master/README.md';
 		if(url.indexOf('https') !== 0) {
-			url = GITHUB_STATIC_URL + repoUrl;
+			url = AppConstants.URLs.GITHUB_STATIC_URL + repoUrl;
 		}
 		console.log('url', url);
-		request.get(url, function(error, response, body) {
+		return url;
+	},
+
+	_lintGithub: function(repoUrl, checks, callback) {
+		console.log('_lintGithub', repoUrl, checks);
+		request.get(repoUrl, function(error, response, body) {
 			var result = {};
 			if(!error && response.statusCode === 200) {
-				result = writeGood(body, checks);
+				result = this.lintText(body, checks);
 			}
 			else {
 				console.error(error);
@@ -30,7 +27,24 @@ module.exports = {
 		});
 	},
 
+	lintText: function(text, checks) {
+		var result = writeGood(text, checks);
+		return result;
+	},
+
+	lintGithub: function(repoUrl, checks, callback) {
+		console.log('lintGithub', repoUrl, checks);
+		var options = {
+			uri: AppConstants.URLs.LINT_GITHUB,
+			json: {
+				repoUrl: this._getUrl(repoUrl),
+				checks: checks
+			}
+		};
+		request.get(options, callback);
+	},
+
 	lintUrl: function(url, checks) {
 
 	}
-}
+};

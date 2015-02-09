@@ -46,19 +46,21 @@ var App = React.createClass({
       action: this.state.action,
       checks: {}
     };
-    if(this.state.action === Constants.ActionTypes.LINT_TEXT) {
-      payload.text = this.refs.text.getValue();
-    }
-    else {
-      payload.repoUrl = this.refs.repo.getValue();
-    }
     for(var i in this.refs) {
       if(this.refs[i].isCheckboxOrRadio()) {
         payload.checks[i] = this.refs[i].getChecked();
       }
     }
+    if(payload.action === Constants.ActionTypes.LINT_TEXT) {
+      payload.text = this.refs.text.getValue();
+      LintAction.lintText(payload);
+    }
+    else {
+      payload.repoUrl = this.refs.repo.getValue();
+      LintAction.lintGithub(payload);
+
+    }
     console.log('component', payload);
-    LintAction.lint(payload);
   },
 
   render: function() {

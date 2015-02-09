@@ -3,9 +3,13 @@ var Constants = require('../constants/AppConstants');
 
 module.exports = {
 
-  lint: function(payload) {
-    console.log('action', payload)
+  lintText: function(payload) {
+    console.log('view action', payload)
     AppDispatcher.handleViewAction(payload);
-  }
+  },
 
+  lintGithub: function(payload) {
+    console.log('server action', payload)
+    AppDispatcher.handleServerAction(payload);
+  }
 };

@@ -12,6 +12,12 @@ module.exports = {
   ActionSources: keyMirror({
     SERVER_ACTION: null,
     VIEW_ACTION: null
-  })
+  }),
 
+  URLs: {
+    ROOT: '/',
+    LINT_GITHUB: '/lintgithub',
+    GITHUB_STATIC_URL: 'https://raw.githubusercontent.com/',
+    GITHUB_REGULAR_URL: 'https://github.com/'
+  }
 };
