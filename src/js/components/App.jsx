@@ -4,6 +4,7 @@ var React = require('react');
 var Constants = require('../constants/AppConstants');
 var Bootstrap = require('react-bootstrap');
 var LintResults = require('./LintResults.jsx');
+var LintResultsColors = require('./LintResultsColors.jsx');
 var LintStore = require('../stores/LintStore');
 var LintAction = require('../actions/LintAction');
 
@@ -13,7 +14,8 @@ var App = React.createClass({
     return {
       action: Constants.ActionTypes.LINT_GITHUB,
       selectAll: true,
-      showResult: false
+      showResult: false,
+      resultInColors: false
     };
   },
 
@@ -65,6 +67,10 @@ var App = React.createClass({
     }
   },
 
+  selectResultType: function(event) {
+    this.setState({resultInColors: this.refs.colors.getChecked()});
+  },
+
   render: function() {
     return (
       <div>
@@ -111,6 +117,7 @@ var App = React.createClass({
             <Bootstrap.Col md={3} className="text-left">
               <Bootstrap.Input type="checkbox" label="Wordy phrases and unnecessary words" ref="tooWordy" defaultChecked={this.state.selectAll} />
               <Bootstrap.Input type="checkbox" label="Common cliches" ref="cliches" defaultChecked={this.state.selectAll} />
+              <Bootstrap.Input type="checkbox" label="Highlight results with colors" ref="colors" onChange={this.selectResultType} defaultChecked={false} />
               <Bootstrap.Button bsStyle="default" bsSize="xsmall" onClick={this.handleCheckAll}>All</Bootstrap.Button>
             </Bootstrap.Col>
           </Bootstrap.Row>
@@ -124,7 +131,12 @@ var App = React.createClass({
         <Bootstrap.Grid className={this.state.showResult ? 'show' : 'hidden'}>
           <Bootstrap.Row>
             <Bootstrap.Col md={10} className="text-left">
-              <LintResults result={LintStore.getData()} />
+              {
+                this.state.resultInColors ?
+                <LintResultsColors result={LintStore.getData()} />
+                :
+                <LintResults result={LintStore.getData()} />
+              }
             </Bootstrap.Col>
           </Bootstrap.Row>
         </Bootstrap.Grid>

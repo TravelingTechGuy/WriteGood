@@ -29,7 +29,6 @@ var LintResults = React.createClass({
   },
 
   render: function() {
-    console.log('result',this.props.result);
     if(this.props.result) {
       return (
         <div>
@@ -41,11 +40,14 @@ var LintResults = React.createClass({
             })
           }
           </ol>
+          <p className="text-right">
+            <a href="/">Back</a>
+          </p>
         </div>
       );
     }
     else {
-      return (<div></div>);
+      return (<div><a href="/">Back</a></div>);
     }
   }
 });
