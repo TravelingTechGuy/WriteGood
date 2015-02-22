@@ -33,7 +33,7 @@ var LintResults = React.createClass({
     if(this.props.result) {
       return (
         <div>
-          <p>{this.buildResult()}</p>
+          <p dangerouslySetInnerHTML={{__html: this.buildResult()}} />
           <ol>
           {
             this.props.result.result.map(function(point, index) {
