@@ -16,6 +16,7 @@
     "express": "^4.11.2",
     "flux": "^2.0.1",
     "object-assign": "^2.0.0",
+    "randomcolor": "^0.2.0",
     "react": "^0.12.2",
     "react-bootstrap": "^0.13.3",
     "superagent": "^0.21.0",
