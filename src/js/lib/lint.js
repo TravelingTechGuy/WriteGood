@@ -1,5 +1,5 @@
 'use strict';
-var request = require('request');
+var request = require('superagent');
 var writeGood = require('write-good');
 var AppConstants = require('../constants/AppConstants');
 
@@ -18,7 +18,10 @@ module.exports = {
 		request.get(repoUrl, function(error, response, body) {
 			var result = {};
 			if(!error && response.statusCode === 200) {
-				result = this.lintText(body, checks);
+				result = {
+					text: body,
+					result: this.lintText(body, checks)
+				};
 			}
 			else {
 				console.error(error);

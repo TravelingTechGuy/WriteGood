@@ -7,7 +7,7 @@ var lint = require('../lib/lint');
 var assign = require('object-assign');
 
 // data storage
-var _data = {};
+var _data = null;
 
 var LintStore = assign(EventEmitter.prototype, {
 
@@ -36,12 +36,14 @@ var LintStore = assign(EventEmitter.prototype, {
     console.log('store', payload);
     switch(action.action) {
       case Constants.ActionTypes.LINT_TEXT:
-          _data = lint.lintText(action.text, action.checks);
+          _data = {
+            text: action.text,
+            result: lint.lintText(action.text, action.checks)
+          };
           console.log(_data);
           LintStore.emitChange();
           break;
       case Constants.ActionTypes.LINT_GITHUB:
-        console.log('im here');
           lint.lintGithub(action.repoUrl, action.checks, function(error, result) {
             if(error) {
               _data.error = error;
