@@ -40,7 +40,6 @@ var LintStore = assign(EventEmitter.prototype, {
             text: action.text,
             result: lint.lintText(action.text, action.checks)
           };
-          console.log(_data);
           LintStore.emitChange();
           break;
       case Constants.ActionTypes.LINT_GITHUB:
@@ -51,7 +50,6 @@ var LintStore = assign(EventEmitter.prototype, {
             else {
               _data = result;
             }
-            console.log(_data);
             LintStore.emitChange();
           });
           break;

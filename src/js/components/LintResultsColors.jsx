@@ -15,7 +15,10 @@ var LintResultsColors = React.createClass({
     var loc = 0;
     var result = '';
     var text = this.props.result.text;
-    LintResultsColors.colors = randomColor({hue: 'blue', count: this.props.result.result.length});
+    LintResultsColors.colors = randomColor({
+      luminosity: 'light',
+      count: this.props.result.result.length
+    });
     for(var i = 0; i < this.props.result.result.length; i++) {
       var point = this.props.result.result[i];
       result += text.substring(loc, point.index);
