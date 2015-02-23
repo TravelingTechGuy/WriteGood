@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var BackButton = require('./BackButton.jsx');
 
 var LintResults = React.createClass({
   getInitialState: function() {
@@ -40,14 +41,12 @@ var LintResults = React.createClass({
             })
           }
           </ol>
-          <p className="text-right">
-            <a href="/">Back</a>
-          </p>
+          <BackButton />
         </div>
       );
     }
     else {
-      return (<div><a href="/">Back</a></div>);
+      return (<BackButton />);
     }
   }
 });

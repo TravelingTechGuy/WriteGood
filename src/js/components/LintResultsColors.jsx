@@ -2,6 +2,7 @@
 
 var React = require('react');
 var randomColor = require('randomcolor');
+var BackButton = require('./BackButton.jsx');
 
 var LintResultsColors = React.createClass({
   getInitialState: function() {
@@ -47,14 +48,12 @@ var LintResultsColors = React.createClass({
               );
             })
           }
-          <p className="text-right">
-            <a href="/">Back</a>
-          </p>
+          <BackButton />
         </div>
       );
     }
     else {
-      return (<div><a href="/">Back</a></div>);
+      return (<BackButton />);
     }
   }
 });
