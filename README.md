@@ -1,6 +1,8 @@
 
 # WriteGood
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 Uses the [write-good](https://www.npmjs.com/package/write-good) NPM package to lint your Github Repo's README file
 
 ## Running your project
