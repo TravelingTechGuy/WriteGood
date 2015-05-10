@@ -10,7 +10,8 @@
   "scripts": {
     "watch": "gulp",
     "build": "gulp build",
-    "start": "node server"
+    "start": "node server",
+    "postinstall": "gulp build"
   },
   "dependencies": {
     "express": "^4.11.2",
