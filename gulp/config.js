@@ -1,5 +1,6 @@
-var dest = "./dist";
+var dest = './dist';
 var src = './src';
+var gutil = require('gulp-util');
 
 module.exports = {
   server: {
@@ -13,8 +14,8 @@ module.exports = {
     }
   },
   sass: {
-    src: src + "/styles/**/*.{sass,scss,css}",
-    dest: dest + "/styles",
+    src: src + '/styles/**/*.{sass,scss,css}',
+    dest: dest + '/styles',
     settings: {
       indentedSyntax: false, // Enable .sass syntax?
       imagePath: '/images' // Used by the image-url helper
@@ -22,11 +23,12 @@ module.exports = {
   },
   browserify: {
     settings: {
-      transform: ['reactify', '6to5ify']
+      transform: ['reactify', 'babelify']
     },
     src: src + '/js/index.jsx',
     dest: dest + '/js',
     outputName: 'index.js',
+    debug: gutil.env.type === 'dev'
   },
   html: {
     src: 'src/index.html',
