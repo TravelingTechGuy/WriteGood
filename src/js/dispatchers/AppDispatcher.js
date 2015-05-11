@@ -1,5 +1,5 @@
 'use strict';
-
+var debug = require('debug')('flux:dispatcher');
 var Dispatcher = require('flux').Dispatcher;
 var Constants = require('../constants/AppConstants');
 var assign = require('object-assign');
@@ -15,7 +15,7 @@ var AppDispatcher = assign(new Dispatcher(), {
   },
 
   handleViewAction: function(action) {
-    console.log('dispatcher',action);
+    dbug('dispatcher',action);
     var payload = {
       source: Constants.ActionSources.VIEW_ACTION,
       action: action

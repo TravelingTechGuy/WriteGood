@@ -1,5 +1,5 @@
 'use strict';
-
+var debug = require('debug')('flux:store');
 var AppDispatcher = require('../dispatchers/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var Constants = require('../constants/AppConstants');
@@ -33,7 +33,7 @@ var LintStore = assign(EventEmitter.prototype, {
   // register store with dispatcher, allowing actions to flow through
   dispatcherIndex: AppDispatcher.register(function(payload) {
     var action = payload.action;
-    console.log('store', payload);
+    debug('store', payload);
     switch(action.action) {
       case Constants.ActionTypes.LINT_TEXT:
           _data = {

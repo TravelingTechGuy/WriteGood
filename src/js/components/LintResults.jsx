@@ -15,16 +15,21 @@ var LintResults = React.createClass({
     var p = 0;
     var loc = 0;
     var result = '';
-    while(loc < this.props.result.text.length) {
-      var point = this.props.result.result[p];
-      if(p < this.props.result.result.length && loc === point.index + point.offset) {
-        result += '<sup>' + (p + 1) + '</sup>';
-        p++;
+    if(this.props.result.result.length > 0) {
+      while(loc < this.props.result.text.length) {
+        var point = this.props.result.result[p];
+        if(p < this.props.result.result.length && loc === point.index + point.offset) {
+          result += '<sup>' + (p + 1) + '</sup>';
+          p++;
+        }
+        else {
+          result += this.props.result.text.charAt(loc);
+          loc++;
+        }
       }
-      else {
-        result += this.props.result.text.charAt(loc);
-        loc++;
-      }
+    }
+    else {
+      result = 'Hooray! Nothing to fix!';
     }
     return result;
   },

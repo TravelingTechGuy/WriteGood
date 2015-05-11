@@ -1,53 +1,64 @@
 'use strict';
+var debug = require('debug')('lint');
 var request = require('superagent');
 var writeGood = require('write-good');
 var AppConstants = require('../constants/AppConstants');
 
-module.exports = {
-	_getUrl: function(repoUrl) {
-		var url = repoUrl.replace(AppConstants.URLs.GITHUB_REGULAR_URL, AppConstants.URLs.GITHUB_STATIC_URL) + '/master/README.md';
-		if(url.indexOf('https') !== 0) {
-			url = AppConstants.URLs.GITHUB_STATIC_URL + repoUrl;
-		}
-		console.log('url', url);
-		return url;
-	},
-
-	_lintGithub: function(repoUrl, checks, callback) {
-		console.log('_lintGithub', repoUrl, checks);
-		request.get(repoUrl, function(error, response, body) {
-			var result = {};
-			if(!error && response.statusCode === 200) {
-				result = {
-					text: body,
-					result: this.lintText(body, checks)
-				};
-			}
-			else {
-				console.error(error);
-			}
-			callback(error, result);
-		});
-	},
-
-	lintText: function(text, checks) {
-		var result = writeGood(text, checks);
-		return result;
-	},
-
-	lintGithub: function(repoUrl, checks, callback) {
-		console.log('lintGithub', repoUrl, checks);
-		var options = {
-			uri: AppConstants.URLs.LINT_GITHUB,
-			json: {
-				repoUrl: this._getUrl(repoUrl),
-				checks: checks
-			}
-		};
-		request.get(options, callback);
-	},
-
-	lintUrl: function(url, checks) {
-
-	}
+var getUrl = function(repoUrl) {
+  var url = repoUrl.replace(AppConstants.URLs.GITHUB_REGULAR_URL, AppConstants.URLs.GITHUB_STATIC_URL) + '/master/README.md';
+  if(url.indexOf('https') !== 0) {
+    url = AppConstants.URLs.GITHUB_STATIC_URL + repoUrl;
+  }
+  debug('getUrl', url);
+  return url;
 };
+
+var lint ={
+  lintText: function(text, checks) {
+    return writeGood(text, checks);
+  },
+
+  lintGithub: function(repoUrl, checks, callback) {
+    debug('lintGithub', repoUrl, checks);
+    request
+      .get('/github')
+      .query({
+        repoUrl: getUrl(repoUrl),
+        checks:  JSON.stringify(checks)
+      })
+      .end(function(error, result) {
+        debug('lintGithub callback', error, result)
+        callback(error, JSON.parse(result.text));
+      });
+  },
+
+  lintUrl: function(url, checks) {
+
+  },
+
+  lintGithubServerSide: function(repoUrl, checks, callback) {
+    var removeMD = require('remove-markdown');
+    debug('lintGithubServerSide', repoUrl, checks);
+    request
+      .get(repoUrl)
+      .set('Access-Control-Allow-Origin', '*')
+      .end(function(error, body) {
+        debug('body', body)
+        var result;
+        var err;
+        if(error || body.status !== 200) {
+          err = error || new Error('HTTP ' + body.status);
+          console.error(err);
+        }
+        else {
+          var text = removeMD(body.text);
+          result = {
+            text: text,
+            result: lint.lintText(text, checks)
+          };
+        }
+        callback(err, result);
+      });
+  }
+};
+module.exports = lint;

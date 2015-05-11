@@ -1,7 +1,6 @@
 var keyMirror = require('react/lib/keyMirror');
 
 module.exports = {
-
   CHANGE_EVENT: 'change',
 
   ActionTypes: keyMirror({
@@ -15,8 +14,6 @@ module.exports = {
   }),
 
   URLs: {
-    ROOT: '/',
-    LINT_GITHUB: '/lintgithub',
     GITHUB_STATIC_URL: 'https://raw.githubusercontent.com/',
     GITHUB_REGULAR_URL: 'https://github.com/'
   }
