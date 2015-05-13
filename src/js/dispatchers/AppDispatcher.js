@@ -15,7 +15,7 @@ var AppDispatcher = assign(new Dispatcher(), {
   },
 
   handleViewAction: function(action) {
-    dbug('dispatcher',action);
+    debug('dispatcher',action);
     var payload = {
       source: Constants.ActionSources.VIEW_ACTION,
       action: action
