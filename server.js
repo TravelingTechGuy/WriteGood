@@ -2,7 +2,7 @@
 var debug = require('debug')('server');
 var express = require('express');
 var app = express();
-var port = 8080;
+var port = process.env.PORT || 8080;
 var AppConstants = require('./src/js/constants/AppConstants');
 var lint = require('./src/js/lib/lint');
 
@@ -27,5 +27,5 @@ app.get('/github', function(req, res) {
 });
 
 var server = app.listen(port, function () {
-  console.log('WriteGood listening at http://%s:%s', server.address().address, server.address().port);
+  console.log('WriteGood listening on port %s', server.address().port);
 });
