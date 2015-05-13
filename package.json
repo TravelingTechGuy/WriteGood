@@ -14,7 +14,8 @@
     "dev": "gulp --type dev",
     "watch": "gulp",
     "start": "node server",
-    "build": "gulp build"
+    "build": "gulp build",
+    "postinstall": "gulp build"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
@@ -39,9 +40,7 @@
     "react-bootstrap": "^0.21.2",
     "remove-markdown": "0.0.2",
     "superagent": "^1.2.0",
-    "write-good": "^0.9.1"
-  },
-  "devDependencies": {
+    "write-good": "^0.9.1",
     "babelify": "^6.0.2",
     "browserify": "^10.1.3",
     "gulp": "^3.8.7",
