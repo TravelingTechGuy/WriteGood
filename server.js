@@ -6,7 +6,6 @@ var port = 8080;
 var AppConstants = require('./src/js/constants/AppConstants');
 var lint = require('./src/js/lib/lint');
 
-
 app.use(express.static('dist'));
 
 app.get('/', function(req, res) {
