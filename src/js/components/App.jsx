@@ -78,7 +78,7 @@ var App = React.createClass({
           <Bootstrap.Row>
             <Bootstrap.Col md={10}>
               <Bootstrap.PageHeader>
-                Write Good <small>concentrate on your code, let us correct your English</small>
+                Write Better <small>write your code, we'll correct your English</small>
               </Bootstrap.PageHeader>
             </Bootstrap.Col>
           </Bootstrap.Row>
