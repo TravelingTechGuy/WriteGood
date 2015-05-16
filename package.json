@@ -1,7 +1,7 @@
 {
-  "name": "writegood",
+  "name": "writebetter",
   "version": "1.0.0",
-  "description": "write good readme files",
+  "description": "lint your README files",
   "author": {
     "name": "Guy Vider"
   },

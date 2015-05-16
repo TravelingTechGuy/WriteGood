@@ -1,4 +1,5 @@
 'use strict';
+
 var debug = require('debug')('server');
 var path = require('path');
 var express = require('express');

@@ -12,10 +12,9 @@ var LintAction = require('../actions/LintAction');
 var App = React.createClass({
   getInitialState: function() {
     return {
-      action: Constants.ActionTypes.LINT_GITHUB,
       selectAll: true,
       showResult: false,
-      resultInColors: false
+      resultInColors: true
     };
   },
 
@@ -31,10 +30,6 @@ var App = React.createClass({
     LintStore.removeChangeListener(this._onChange);
   },
 
-  handleSelectAction: function(action) {
-    this.setState({action: action});
-  },
-
   handleCheckAll: function() {
     var checkAll = !this.state.selectAll;
     for(var i in this.refs) {
@@ -47,23 +42,25 @@ var App = React.createClass({
 
   handleLint: function(event) {
     event.preventDefault();
-    var payload = {
-      action: this.state.action,
-      checks: {}
-    };
-    for(var i in this.refs) {
+    var text = this.refs.text.getValue();
+    var action = text.startsWith('https://github.com') ? Constants.ActionTypes.LINT_GITHUB : Constants.ActionTypes.LINT_TEXT;
+    var checks = {};
+    for(let i in this.refs) {
       if(this.refs[i].isCheckboxOrRadio()) {
-        payload.checks[i] = this.refs[i].getChecked();
+        checks[i] = this.refs[i].getChecked();
       }
     }
+    var payload = {
+      action: action,
+      checks: checks
+    };
     if(payload.action === Constants.ActionTypes.LINT_TEXT) {
-      payload.text = this.refs.text.getValue();
+      payload.text = text;
       LintAction.lintText(payload);
     }
     else {
-      payload.repoUrl = this.refs.repo.getValue();
+      payload.repoUrl = text;
       LintAction.lintGithub(payload);
-
     }
   },
 
@@ -86,24 +83,6 @@ var App = React.createClass({
 
         <Bootstrap.Grid className={this.state.showResult ? 'hidden' : 'show'}>
           <Bootstrap.Row>
-            <Bootstrap.Col md={10}>
-              <Bootstrap.Nav bsStyle="pills" activeKey={this.state.action} onSelect={this.handleSelectAction}>
-                <Bootstrap.NavItem eventKey={Constants.ActionTypes.LINT_GITHUB} title="Github Readme">Github README</Bootstrap.NavItem>
-                <Bootstrap.NavItem eventKey={Constants.ActionTypes.LINT_TEXT} title="Paste Text">Paste Text</Bootstrap.NavItem>
-              </Bootstrap.Nav>
-            </Bootstrap.Col>
-          </Bootstrap.Row>
-          <Bootstrap.Row>
-            <Bootstrap.Col md={this.state.action === Constants.ActionTypes.LINT_TEXT ? 10 : 8}>
-            {
-              this.state.action === Constants.ActionTypes.LINT_TEXT ?
-                <Bootstrap.Input type="textarea" label="Paste your text here" defaultValue="" ref="text" />
-                :
-                <Bootstrap.Input type="url" label="Github Repo URL" defaultValue="" ref="repo" />
-            }
-            </Bootstrap.Col>
-          </Bootstrap.Row>
-          <Bootstrap.Row>
             <Bootstrap.Col md={3} className="text-left">
               <Bootstrap.Input type="checkbox" label="Passive voice" ref="passive" defaultChecked={this.state.selectAll} />
               <Bootstrap.Input type="checkbox" label="Lexical illusions" ref="illusion" defaultChecked={this.state.selectAll} />
@@ -117,13 +96,18 @@ var App = React.createClass({
             <Bootstrap.Col md={3} className="text-left">
               <Bootstrap.Input type="checkbox" label="Wordy phrases and unnecessary words" ref="tooWordy" defaultChecked={this.state.selectAll} />
               <Bootstrap.Input type="checkbox" label="Common cliches" ref="cliches" defaultChecked={this.state.selectAll} />
-              <Bootstrap.Input type="checkbox" label="Highlight results with colors" ref="colors" onChange={this.selectResultType} defaultChecked={false} />
+              <Bootstrap.Input type="checkbox" label="Highlight results with colors" ref="colors" onChange={this.selectResultType} defaultChecked={true} />
               <Bootstrap.Button bsStyle="default" bsSize="xsmall" onClick={this.handleCheckAll}>All</Bootstrap.Button>
             </Bootstrap.Col>
           </Bootstrap.Row>
           <Bootstrap.Row>
             <Bootstrap.Col md={10} className="text-right">
               <Bootstrap.Button bsStyle="primary" onClick={this.handleLint}>Lint!</Bootstrap.Button>
+            </Bootstrap.Col>
+          </Bootstrap.Row>
+          <Bootstrap.Row>
+            <Bootstrap.Col md={10}>
+              <Bootstrap.Input type="textarea" placeholder="Paste text, or Github repo url here" ref="text" />
             </Bootstrap.Col>
           </Bootstrap.Row>
         </Bootstrap.Grid>

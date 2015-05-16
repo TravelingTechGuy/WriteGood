@@ -1,5 +1,5 @@
 {
-  "name": "WriteGood - the README linter",
+  "name": "WriteBetter - the README linter",
   "description": "lint your Github Repo's README file",
   "repository": "https://github.com/TravelingTechGuy/WriteGood",
   "logo": "https://node-js-sample.herokuapp.com/node.svg",
