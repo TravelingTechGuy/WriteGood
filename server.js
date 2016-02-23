@@ -30,6 +30,6 @@ app.get('/github', function(req, res) {
   });
 });
 
-var server = app.listen(port, function () {
-  console.log('WriteGood listening on port %s', server.address().port);
+var server = app.listen(port, function() {
+  console.log('WriteBetter listening on port %s', server.address().port);
 });
