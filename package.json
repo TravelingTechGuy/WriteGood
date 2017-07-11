@@ -1,6 +1,9 @@
 {
   "name": "writebetter",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.x"
+  },
   "description": "lint your README files",
   "author": {
     "name": "Guy Vider"
