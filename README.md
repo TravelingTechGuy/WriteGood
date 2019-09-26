@@ -1,5 +1,5 @@
 
-# Write Better
+# Write Better - [Try it!](https://writebetter.herokuapp.com/)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
